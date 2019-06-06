@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <ProductStock/>
+    <GithubIssues/>
   </div>
 </template>
 
 <script>
-import ProductStock from './components/ProductStock'
+import GithubIssues from './components/GithubIssues'
 
 export default {
   name: 'App',
   components: {
-    ProductStock
+    GithubIssues
   }
 }
 </script>
