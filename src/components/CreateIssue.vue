@@ -1,6 +1,6 @@
 <template>
     <div class="create-issue">
-        <h1>Create Issue</h1>
+        <h1>{{ msg }}</h1>
         <form v-on:submit.prevent="createIssue">
             <input v-model.trim="issue.title" placeholder="Name" type="text">
             <textarea v-model.trim="issue.body" placeholder="Description"></textarea>
@@ -27,7 +27,7 @@
                 fetch("https://api.github.com/repos/Leocadio94/teste-issues/issues", {
                     headers: { 
                         "Content-Type": "application/json; charset=utf-8",
-                        "Authorization": "token 45ee2f38cb8a3ec3c86523e2642667c1e4d5f5d7"
+                        "Authorization": "token a1b0f5582ec7a3611e5da437fcde683c89197d45"
                     },
                     method: 'POST',
                     body: JSON.stringify(this.issue)
