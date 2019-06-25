@@ -1,19 +1,31 @@
+<style lang="scss">
+   @import './src/scss/styles.scss';
+</style>
+
+
 <template>
   <div id="app">
-    <ListIssues/>
-    <CreateIssue/>
+    <Header/>
+    <b-container>
+      <ListIssues/>
+      <CreateIssue/>
+    </b-container>
   </div>
 </template>
 
 <script>
-import ListIssues from './components/ListIssues'
-import CreateIssue from './components/CreateIssue'
+import Header from "./components/Header";
+import ListIssues from "./components/ListIssues";
+import CreateIssue from "./components/CreateIssue";
+import Footer from "./components/Footer";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
+    Header,
     ListIssues,
-    CreateIssue
+    CreateIssue,
+    Footer
   }
-}
+};
 </script>
