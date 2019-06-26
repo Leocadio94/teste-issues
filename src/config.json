@@ -1,6 +1,10 @@
 {
     "api": {
-        "url": "",
-        "header": ""
+        "url": "https://api.github.com/repos/Leocadio94/teste-issues/issues",
+        "headers": { 
+            "Content-Type": "application/json; charset=utf-8",
+            "Authorization": "token "
+        },
+        "tokenUrl": "https://leocadio-netlify-express.netlify.com/.netlify/functions/server/"
     }
 }

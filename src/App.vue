@@ -8,6 +8,7 @@
     <Header/>
     <b-container>
       <ListIssues/>
+      <hr/>
       <CreateIssue/>
     </b-container>
   </div>

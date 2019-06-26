@@ -5,7 +5,7 @@
             <div class="d-flex justify-content-center" v-if="!loaded">
                 <b-spinner variant="primary" label="Loading..."></b-spinner>
             </div>
-             <div role="tablist" v-if="loaded">
+             <div role="tablist" v-if="loaded && tokenRetrieved">
                  <b-card no-body class="mb-1" v-for="issue in issues" :key="issue" @click="setCurrentIssue(issue)" >
                     <b-card-header header-tag="header" class="p-1" role="tab">
                         <b-button block href="#" v-b-toggle="'accordion'+issue.number" variant="info" :class=" { 'text-left': true, active: isCurrentIssue(issue) } ">
@@ -16,8 +16,6 @@
                         <b-card-body>
                             <b-card-text>
                                 <strong>User:</strong>
-                                <img :src="issue.user.avatar_url" width="20px" height="20px"> 
-                <img :src="issue.user.avatar_url" width="20px" height="20px">
                                 <img :src="issue.user.avatar_url" width="20px" height="20px"> 
                                 {{issue.user.login}} 
                             </b-card-text>
@@ -37,9 +35,9 @@
                                 <input v-model.trim="currentIssue.title" placeholder="Name" type="text">
                                 <textarea v-model.trim="currentIssue.body" placeholder="Description"></textarea>
 
-                                <button @click="editIssue">Edit Issue</button>
-                                <button @click="lockIssue">Lock Issue</button>
-                                <button @click="unlockIssue">Unlock Issue</button>
+                                <b-button @click="editIssue">Edit Issue</b-button>
+                                <b-button @click="lockIssue" v-if="!issue.locked">Lock Issue</b-button>
+                                <b-button @click="unlockIssue" v-if="issue.locked">Unlock Issue</b-button>
                             </b-card-text>
                         </b-card-body>
                     </b-collapse>
@@ -50,6 +48,8 @@
 </template>
 
 <script>
+    import config from "../config.json";
+
     export default {
         name: "ListIssues",
         data() {
@@ -59,22 +59,23 @@
                 currentId: 0,
                 currentIssue: {},
                 token: "a1b0f5582ec7a3611e5da437fcde683c89197d45",
-                tokenRetrived: false,
+                tokenRetrieved: false,
                 msg: "List Issues"
             };
         },
         created() {
-            fetch("https://api.github.com/repos/Leocadio94/teste-issues/issues")
+            fetch(config.api.url)
                 .then(response => response.json())
                 .then(json => {
                     this.issues = json;
                     this.loaded = true;
                 });
-            fetch("https://leocadio-netlify-express.netlify.com/.netlify/functions/server/",)
-                .then(response => {console.log('amigo sosasassastaqui'); return response.json();})
+        
+            fetch(config.api.tokenUrl)
+                .then(response => response.json())
                 .then(json => {
                     this.token = json.token;
-                    this.tokenRetrived = true;
+                    this.tokenRetrieved = true;
                 });
         },
         methods: {
@@ -84,18 +85,16 @@
                     title: thisIssue.title,
                     body: thisIssue.body,
                 };
-                console.log('this.token');
-                console.log(this.token);
             },
             isCurrentIssue(issue) {
                 return this.currentId == issue.number;
             },
             editIssue() {
-                fetch("https://api.github.com/repos/Leocadio94/teste-issues/issues/" + this.currentId, {
-                    headers: { 
-                        "Content-Type": "application/json; charset=utf-8",
-                        "Authorization": "token " + this.token
-                    },
+                const headers = config.api.headers;
+                headers["Authorization"] = "token " + this.token;
+
+                fetch(config.api.url + '/' + this.currentId, {
+                    headers: headers,
                     method: 'PATCH',
                     body: JSON.stringify(this.currentIssue)
                 })
@@ -103,11 +102,11 @@
                 .catch(error => console.log(error));
             },
             lockIssue() {
-                fetch("https://api.github.com/repos/Leocadio94/teste-issues/issues/" + this.currentId + '/lock', {
-                    headers: { 
-                        "Content-Type": "application/json; charset=utf-8",
-                        "Authorization": "token " + this.token
-                    },
+                const headers = config.api.headers;
+                headers["Authorization"] = "token " + this.token;
+
+                fetch(config.api.url + '/' + this.currentId + '/lock', {
+                    headers: headers,
                     method: 'PUT',
                     body: JSON.stringify({ "locked": true, "active_lock_reason": "too heated" })
                 })
@@ -115,11 +114,11 @@
                 .catch(error => console.log(error));
             },
             unlockIssue() {
-                fetch("https://api.github.com/repos/Leocadio94/teste-issues/issues/" + this.currentId + '/lock', {
-                    headers: { 
-                        "Content-Type": "application/json; charset=utf-8",
-                        "Authorization": "token " + this.token
-                    },
+                const headers = config.api.headers;
+                headers["Authorization"] = "token " + this.token;
+                
+                fetch(config.api.url + '/' + this.currentId + '/lock', {
+                    headers: headers,
                     method: 'DELETE'
                 })
                 .then(response => console.log(response))

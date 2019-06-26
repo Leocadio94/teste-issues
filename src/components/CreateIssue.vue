@@ -1,6 +1,9 @@
 <template>
     <b-row>
-        <div class="create-issue">
+        <div class="d-flex justify-content-center" v-if="!tokenRetrieved">
+            <b-spinner variant="primary" label="Loading..."></b-spinner>
+        </div>
+        <div class="create-issue" v-if="tokenRetrieved">
             <h1>{{ msg }}</h1>
             <b-form v-on:submit.prevent="createIssue">
                 <b-form-group label="Name:" label-for="name">
@@ -17,6 +20,8 @@
 </template>
 
 <script>
+    import config from "../config.json";
+
     export default {
         name: "CreateIssues",
         data() {
@@ -25,16 +30,26 @@
                 issue: {
                     title: "",
                     body: ""
-                }
+                },
+                token: "a1b0f5582ec7a3611e5da437fcde683c89197d45",
+                tokenRetrieved: false
             };
+        },
+        created() {
+            fetch(config.api.tokenUrl)
+                .then(response => response.json())
+                .then(json => {
+                    this.token = json.token;
+                    this.tokenRetrieved = true;
+                });
         },
         methods: {
             createIssue() {
-                fetch("https://api.github.com/repos/Leocadio94/teste-issues/issues", {
-                    headers: { 
-                        "Content-Type": "application/json; charset=utf-8",
-                        "Authorization": "token " + Vue.prototype.$token
-                    },
+                const headers = config.api.headers;
+                headers["Authorization"] = "token " + this.token;
+
+                fetch(config.api.url, {
+                    headers: headers,
                     method: 'POST',
                     body: JSON.stringify(this.issue)
                 })
