@@ -1,11 +1,11 @@
 <template>
     <b-row>
-        <div class="d-flex justify-content-center" v-if="!tokenRetrieved">
-            <b-spinner variant="primary" label="Loading..."></b-spinner>
-        </div>
-        <div class="create-issue" v-if="tokenRetrieved">
-            <h1>{{ msg }}</h1>
-            <b-form v-on:submit.prevent="createIssue">
+        <div class="create-issue p-3 border">
+            <div class="d-flex justify-content-center" v-if="!tokenRetrieved">
+                <b-spinner variant="primary" label="Loading..."></b-spinner>
+            </div>
+            <h1 v-if="tokenRetrieved">{{ msg }}</h1>
+            <b-form v-on:submit.prevent="createIssue" v-if="tokenRetrieved">
                 <b-form-group label="Name:" label-for="name">
                     <b-form-input id="name" v-model.trim="issue.title" placeholder="Enter name..." type="text" />
                 </b-form-group>

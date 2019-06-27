@@ -11,10 +11,12 @@
       <hr/>
       <CreateIssue/>
     </b-container>
+    <Footer/>
   </div>
 </template>
 
 <script>
+
 import Header from "./components/Header";
 import ListIssues from "./components/ListIssues";
 import CreateIssue from "./components/CreateIssue";

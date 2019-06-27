@@ -3,7 +3,7 @@
         "url": "https://api.github.com/repos/Leocadio94/teste-issues/issues",
         "headers": { 
             "Content-Type": "application/json; charset=utf-8",
-            "Authorization": "token "
+            "Authorization": "token a1b0f5582ec7a3611e5da437fcde683c89197d45"
         },
         "tokenUrl": "https://leocadio-netlify-express.netlify.com/.netlify/functions/server/"
     }

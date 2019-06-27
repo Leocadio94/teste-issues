@@ -1,21 +1,27 @@
-# my-project
+# Teste Issues
 
-> A Vue.js project
+![Netlify Status](https://api.netlify.com/api/v1/badges/0221845c-b13e-4e25-9a52-275d4f4b6cbc/deploy-status)](https://app.netlify.com/sites/testeissues/deploys)
 
-## Build Setup
+> App SPA feito em Vue.js para gerenciar issues do GitHub
+
+## Guia de Instalação
 
 ``` bash
-# install dependencies
+# instala as dependências
 npm install
 
-# serve with hot reload at localhost:8080
+# roda o projeto em localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
+## Funcionalidades
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+* Listar issues do repositório
+* Mostrar informaçes de uma issue
+* Criar uma issue
+* Editar uma issue
+* Lock em uma issue
+* Unlock em uma issue
+
+## Servidor Netlify
+
+Caso queira ver o projeto funcionando (via Netlify), vá para o site: https://testeissues.netlify.com/
