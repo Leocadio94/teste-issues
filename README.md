@@ -1,6 +1,6 @@
 # Teste Issues
 
-![Netlify Status](https://api.netlify.com/api/v1/badges/0221845c-b13e-4e25-9a52-275d4f4b6cbc/deploy-status)](https://app.netlify.com/sites/testeissues/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0221845c-b13e-4e25-9a52-275d4f4b6cbc/deploy-status)](https://app.netlify.com/sites/testeissues/deploys)
 
 > App SPA feito em Vue.js para gerenciar issues do GitHub
 
